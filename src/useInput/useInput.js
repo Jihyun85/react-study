@@ -17,16 +17,3 @@ export const useInput = (initialValue, validator) => {
 
   return { value, onChange };
 };
-
-const App = () => {
-  const maxLength = (value) => !value.includes("@");
-  const name = useInput("Ms.", maxLength);
-  return (
-    <div className="App">
-      <h1>Hello!</h1>
-      <input type="text" placeholder="Name" {...name} />
-    </div>
-  );
-};
-
-export default App;
