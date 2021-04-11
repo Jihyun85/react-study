@@ -1,30 +1,42 @@
-import React from "react";
+import React, { useContext } from "react";
+import { UserDispatch } from "./App";
 
-const User = React.memo(({ user, onRemove, onToggle }) => {
+const User = React.memo(({ user }) => {
+  const dispatch2 = useContext(UserDispatch);
+
   return (
     <div>
       <span
         style={{ color: user.active ? "violet" : "black", cursor: "pointer" }}
-        onClick={() => onToggle(user.id)}
+        onClick={() => {
+          dispatch2({
+            type: "TOGGLE_ACTIVE",
+            id: user.id,
+          });
+        }}
       >
         {user.username}
       </span>
       /{user.age}세/{user.email}
-      <button onClick={() => onRemove(user.id)}>삭제</button>
+      <button
+        onClick={() => {
+          dispatch2({
+            type: "REMOVE_USER",
+            id: user.id,
+          });
+        }}
+      >
+        삭제
+      </button>
     </div>
   );
 });
 
-export default React.memo(function UserList({ users, onRemove, onToggle }) {
+export default React.memo(function UserList({ users }) {
   return (
     <>
       {users.map((user) => (
-        <User
-          key={user.id}
-          user={user}
-          onRemove={onRemove}
-          onToggle={onToggle}
-        />
+        <User key={user.id} user={user} />
       ))}
     </>
   );
