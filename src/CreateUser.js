@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function CreateUser({
+export default React.memo(function CreateUser({
   username,
   email,
   age,
@@ -27,4 +27,4 @@ export default function CreateUser({
       </button>
     </div>
   );
-}
+});

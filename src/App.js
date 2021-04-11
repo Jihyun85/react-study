@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import CreateUser from "./CreateUser";
 import UserList from "./UserList";
 
@@ -51,7 +51,7 @@ function App() {
     });
   };
 
-  const onCreate = () => {
+  const onCreate = useCallback(() => {
     const user = {
       id: nextId.current,
       username,
@@ -67,20 +67,26 @@ function App() {
       age: "",
     });
     nextId.current += 1;
-  };
+  }, [users, username, email, age]);
 
-  const onRemove = (id) => {
-    // 삭제 시에는 filter를 이용하는 것이 좋다. (filter는 새로운 배열 반환)
-    setUsers(users.filter((user) => user.id !== id));
-  };
+  const onRemove = useCallback(
+    (id) => {
+      // 삭제 시에는 filter를 이용하는 것이 좋다. (filter는 새로운 배열 반환)
+      setUsers(users.filter((user) => user.id !== id));
+    },
+    [users]
+  );
 
-  const onToggle = (id) => {
-    setUsers(
-      users.map((user) =>
-        user.id === id ? { ...user, active: !user.active } : user
-      )
-    );
-  };
+  const onToggle = useCallback(
+    (id) => {
+      setUsers(
+        users.map((user) =>
+          user.id === id ? { ...user, active: !user.active } : user
+        )
+      );
+    },
+    [users]
+  );
 
   const count = useMemo(() => countActiveUsers(users), [users]);
   return (
