@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useTodoContext } from "../TodoContext";
 
 const TodoHeadBlock = styled.div`
   display: flex;
@@ -26,6 +27,8 @@ const TodoHeadBlock = styled.div`
 `;
 
 const TodoHead = () => {
+  const todos = useTodoContext();
+  console.log(todos);
   return (
     <TodoHeadBlock>
       <h1 className="date">2021년 4월 12일</h1>
