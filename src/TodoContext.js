@@ -58,3 +58,19 @@ export const ContextProvider = ({ children }) => {
     </TodoStateContext.Provider>
   );
 };
+
+// Context 사용 Hook - 전달할 값으로 context를 나눠놨으므로 사용하기 편리하도록 context를 적용한 값을 반환하도록 만들어줌 (편리✨)
+export const useTodoContext = () => {
+  const state = useContext(TodoStateContext);
+  return state;
+};
+
+export const useTodoDispatchContext = () => {
+  const dispatch = useContext(TodoDispatchContext);
+  return dispatch;
+};
+
+export const useTodoNextIdContext = () => {
+  const nextId = useContext(TodoNextIdContext);
+  return nextId;
+};

@@ -28,12 +28,12 @@ const TodoHeadBlock = styled.div`
 
 const TodoHead = () => {
   const todos = useTodoContext();
-  console.log(todos);
+  const undoneTasks = todos.filter((todo) => todo.done !== true);
   return (
     <TodoHeadBlock>
       <h1 className="date">2021년 4월 12일</h1>
       <span className="day">월요일</span>
-      <p className="count">할 일 2개 남음</p>
+      <p className="count">할 일 {undoneTasks.length}개 남음</p>
     </TodoHeadBlock>
   );
 };

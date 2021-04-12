@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { MdAdd } from "react-icons/md";
+import { useTodoDispatchContext, useTodoNextIdContext } from "../TodoContext";
 
 const TodoCreateBlock = styled.div`
   position: absolute;
@@ -68,14 +69,39 @@ const TodoCreate = () => {
   const [open, setOpen] = useState(false);
   const onClick = () => setOpen(!open);
 
+  const [value, setValue] = useState("");
+  const onChange = (e) => setValue(e.target.value);
+
+  const dispatch = useTodoDispatchContext();
+  const nextId = useTodoNextIdContext();
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch({
+      type: "CREATE",
+      todo: {
+        id: nextId.current,
+        text: value,
+        done: false,
+      },
+    });
+    setValue("");
+    nextId.current += 1;
+  };
+
   return (
     <TodoCreateBlock>
       <CreateButton onClick={onClick} open={open}>
         <MdAdd />
       </CreateButton>
       {open && (
-        <TodoForm>
-          <TodoInput autoFocus placeholder="Enter를 누르면 제출됩니다." />
+        <TodoForm onSubmit={onSubmit}>
+          <TodoInput
+            autoFocus
+            placeholder="Enter를 누르면 제출됩니다."
+            onChange={onChange}
+            value={value}
+          />
         </TodoForm>
       )}
     </TodoCreateBlock>
