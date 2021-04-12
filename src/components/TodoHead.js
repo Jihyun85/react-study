@@ -7,7 +7,6 @@ const TodoHeadBlock = styled.div`
   justify-content: center;
   width: 100%;
   height: 30%;
-  padding: 3rem;
   border-bottom: 0.1rem solid #b7cfdc;
   .date {
     font-size: 3rem;
