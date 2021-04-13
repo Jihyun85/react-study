@@ -1,10 +1,11 @@
 import Users from "./Users";
+import { UsersProider } from "./UserContext";
 
 function App() {
   return (
-    <div className="App">
+    <UsersProider>
       <Users />
-    </div>
+    </UsersProider>
   );
 }
 
