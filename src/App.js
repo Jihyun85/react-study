@@ -1,5 +1,11 @@
+import CounterContainer from "./components/CounterContainer";
+
 function App() {
-  return <div className="App"></div>;
+  return (
+    <div>
+      <CounterContainer />
+    </div>
+  );
 }
 
 export default App;
