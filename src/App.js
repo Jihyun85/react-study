@@ -1,6 +1,4 @@
 import { Route } from "react-router";
-import CounterContainer from "./containers/CounterContainer";
-import PostsListContainer from "./containers/PostsListsContainer";
 import PostPage from "./pages/PostPage";
 import PostListPage from "./pages/PostListPage";
 
