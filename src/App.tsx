@@ -1,14 +1,13 @@
+import Counter from "./Counter";
 import Greetings from "./Greeting";
+import MyForm from "./myForm";
+import ReducerSample from "./ReducerSample";
 
 function App() {
-  const onClick = (name: string) => {
-    console.log(`${name} says hello!`);
+  const onSubmit = (form: { name: string; description: string }) => {
+    console.log(form);
   };
-  return (
-    <div className="App">
-      <Greetings name="jihyun" optional="nice to meet you" onClick={onClick} />
-    </div>
-  );
+  return <ReducerSample />;
 }
 
 export default App;
