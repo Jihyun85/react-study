@@ -1,5 +1,7 @@
+import TodoContainer from "./containers/TodoContainer";
+
 function App() {
-  return <div></div>;
+  return <TodoContainer />;
 }
 
 export default App;
