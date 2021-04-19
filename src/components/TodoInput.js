@@ -1,8 +1,20 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import { TodoDispatchContext, TodoStateContext } from "../TodoProvider";
 
-function TodoInput({ value, onChange, onSubmit }) {
+function TodoInput() {
+  const { value } = useContext(TodoStateContext);
+  const dispatch = useContext(TodoDispatchContext);
+
+  const onChange = (e) => {
+    const payload = e.target.value;
+    dispatch({ type: "TODO_INPUT", payload });
+  };
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch({ type: "TODO_SUBMIT" });
+  };
+
   return (
     <Form onSubmit={onSubmit}>
       <Input type="text" onChange={onChange} value={value} />
@@ -10,12 +22,6 @@ function TodoInput({ value, onChange, onSubmit }) {
     </Form>
   );
 }
-
-TodoInput.propTypes = {
-  value: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-};
 
 const Form = styled.form`
   display: flex;

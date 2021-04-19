@@ -6,5 +6,5 @@
 
 - [x] useState
 - [x] useReducer
-- [ ] Context API
+- [x] Context API
 - [ ] Redux

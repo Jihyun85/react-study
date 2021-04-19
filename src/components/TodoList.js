@@ -1,37 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import TodoItem from "./TodoItem";
-import PropTypes from "prop-types";
 import styled from "styled-components";
+import { TodoStateContext } from "../TodoProvider";
 
-function TodoList({ todos, onEdit, onRemove, onToggle }) {
+function TodoList() {
+  const { todos } = useContext(TodoStateContext);
   if (todos.length === 0) return null;
   return (
     <List>
       {todos.map((todo) => (
-        <TodoItem
-          key={todo.id}
-          todo={todo}
-          onEdit={onEdit}
-          onRemove={onRemove}
-          onToggle={onToggle}
-        />
+        <TodoItem key={todo.id} todo={todo} />
       ))}
     </List>
   );
 }
-
-TodoList.propTypes = {
-  onEdit: PropTypes.func.isRequired,
-  onRemove: PropTypes.func.isRequired,
-  onToggle: PropTypes.func.isRequired,
-  todos: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      text: PropTypes.string,
-      done: PropTypes.bool,
-    })
-  ),
-};
 
 const List = styled.ul`
   display: flex;
