@@ -1,46 +1,85 @@
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import TodoInput from "../components/TodoInput";
 import TodoList from "../components/TodoList";
 import styled from "styled-components";
 
+const initialState = {
+  todos: [],
+  value: "",
+  nextId: 0,
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "TODO_INPUT":
+      return {
+        ...state,
+        value: action.payload,
+      };
+    case "TODO_SUBMIT":
+      return {
+        todos: state.todos.concat({
+          id: state.nextId,
+          text: state.value,
+          done: false,
+        }),
+        value: "",
+        nextId: state.nextId++,
+      };
+    case "TODO_TOGGLE":
+      return {
+        ...state,
+        todos: state.todos.map((todo) =>
+          todo.id === action.id ? { ...todo, done: !todo.done } : todo
+        ),
+      };
+    case "TODO_EDIT":
+      return {
+        ...state,
+        value: state.todos.find((todo) => todo.id === action.id).text,
+        todos: state.todos.filter((todo) => todo.id !== action.id),
+      };
+    case "TODO_REMOVE":
+      return {
+        ...state,
+        todos: state.todos.filter(
+          (todo) => Number(todo.id) !== Number(action.id)
+        ),
+      };
+    default:
+      throw new Error("Unhandled action");
+  }
+}
+
 function TodoContainer() {
-  const [todos, setTodos] = useState([]);
-  const [value, setValue] = useState("");
-  const [id, setId] = useState(0);
-  const onChange = (e) => setValue(e.target.value);
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const onChange = (e) => {
+    const payload = e.target.value;
+    dispatch({ type: "TODO_INPUT", payload });
+  };
   const onSubmit = (e) => {
     e.preventDefault();
-    const newTodo = {
-      id: id,
-      text: value,
-      done: false,
-    };
-    setId(id + 1);
-    setTodos(todos.concat(newTodo));
-    setValue("");
+    dispatch({ type: "TODO_SUBMIT" });
   };
+
   const onRemove = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+    dispatch({ type: "TODO_REMOVE", id });
   };
+
   const onEdit = (id, value) => {
-    setValue(value);
-    onRemove(id);
+    dispatch({ type: "TODO_EDIT", id, payload: value });
   };
 
   const onToggle = (id) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, done: !todo.done } : todo
-      )
-    );
+    dispatch({ type: "TODO_TOGGLE", id });
   };
 
   return (
     <Container>
       <Title>My To-Do-List</Title>
-      <TodoInput value={value} onChange={onChange} onSubmit={onSubmit} />
+      <TodoInput value={state.value} onChange={onChange} onSubmit={onSubmit} />
       <TodoList
-        todos={todos}
+        todos={state.todos}
         onEdit={onEdit}
         onRemove={onRemove}
         onToggle={onToggle}
