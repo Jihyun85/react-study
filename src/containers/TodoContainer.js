@@ -2,13 +2,45 @@ import React from "react";
 import TodoInput from "../components/TodoInput";
 import TodoList from "../components/TodoList";
 import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  todoEdit,
+  todoInput,
+  todoRemove,
+  todoSubmit,
+  todoToggle,
+} from "../modules/todos";
 
 function TodoContainer() {
+  const { todos, value } = useSelector((state) => state.todos);
+  const dispatch = useDispatch();
+
+  const onChange = (e) => {
+    const payload = e.target.value;
+    dispatch(todoInput(payload));
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch(todoSubmit());
+  };
+
+  const onToggle = (id) => dispatch(todoToggle(id));
+
+  const onEdit = (id, value) => dispatch(todoEdit(id, value));
+
+  const onRemove = (id) => dispatch(todoRemove(id));
+
   return (
     <Container>
       <Title>My To-Do-List</Title>
-      <TodoInput />
-      <TodoList />
+      <TodoInput value={value} onChange={onChange} onSubmit={onSubmit} />
+      <TodoList
+        todos={todos}
+        onToggle={onToggle}
+        onEdit={onEdit}
+        onRemove={onRemove}
+      />
     </Container>
   );
 }
@@ -27,4 +59,4 @@ const Container = styled.div`
   align-items: center;
 `;
 
-export default TodoContainer;
+export default React.memo(TodoContainer);

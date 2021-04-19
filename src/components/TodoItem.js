@@ -1,18 +1,10 @@
-import React, { useContext, useRef } from "react";
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import { MdModeEdit, MdDelete } from "react-icons/md";
 import styled from "styled-components";
-import { TodoDispatchContext } from "../TodoProvider";
 
-function TodoItem({ todo }) {
+function TodoItem({ todo, onToggle, onEdit, onRemove }) {
   const ref = useRef();
-
-  const dispatch = useContext(TodoDispatchContext);
-  const onToggle = (id) => dispatch({ type: "TODO_TOGGLE", id });
-  const onEdit = (id, value) =>
-    dispatch({ type: "TODO_EDIT", id, payload: value });
-  const onRemove = (id) => dispatch({ type: "TODO_REMOVE", id });
-
   return (
     <Item>
       <Checkbox
@@ -41,6 +33,9 @@ TodoItem.propTypes = {
     text: PropTypes.string,
     done: PropTypes.bool,
   }),
+  onToggle: PropTypes.func,
+  onEdit: PropTypes.func,
+  onRemove: PropTypes.func,
 };
 
 const Item = styled.li`
