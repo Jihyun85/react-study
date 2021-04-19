@@ -1,23 +1,33 @@
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import { MdModeEdit, MdDelete } from "react-icons/md";
+import styled from "styled-components";
 
-function TodoItem({ todo, onEdit, onRemove }) {
+function TodoItem({ todo, onEdit, onRemove, onToggle }) {
   const ref = useRef();
   const handleEdit = (id, ref) => {
     if (!ref.current) return;
     onEdit(id, ref.current.innerText);
   };
   return (
-    <li>
-      <p ref={ref}>{todo.text}</p>
-      <div onClick={() => handleEdit(todo.id, ref)}>
-        <MdModeEdit />
-      </div>
-      <div onClick={() => onRemove(todo.id)}>
-        <MdDelete />
-      </div>
-    </li>
+    <Item>
+      <Checkbox
+        type="checkbox"
+        checked={todo.done}
+        onChange={() => onToggle(todo.id)}
+      />
+      <Text ref={ref} done={todo.done}>
+        {todo.text}
+      </Text>
+      <BtnContainer>
+        <EditBtn onClick={() => handleEdit(todo.id, ref)}>
+          <MdModeEdit />
+        </EditBtn>
+        <DeleteBtn onClick={() => onRemove(todo.id)}>
+          <MdDelete />
+        </DeleteBtn>
+      </BtnContainer>
+    </Item>
   );
 }
 
@@ -28,6 +38,49 @@ TodoItem.propTypes = {
   }),
   onEdit: PropTypes.func,
   onRemove: PropTypes.func,
+  onToggle: PropTypes.func,
 };
+
+const Item = styled.li`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 2rem;
+  border-radius: 0.3rem;
+  font-size: 1.6rem;
+  &:hover {
+    background-color: #e7f2f8;
+  }
+`;
+
+const Checkbox = styled.input``;
+
+const Text = styled.p`
+  flex: 1;
+  margin-left: 2rem;
+  color: ${(props) => (props.done ? "grey" : "black")};
+  text-decoration: ${(props) => (props.done ? "line-through" : "none")};
+`;
+
+const BtnContainer = styled.div`
+  display: flex;
+  font-size: 2rem;
+`;
+
+const EditBtn = styled.div`
+  cursor: pointer;
+  &:hover {
+    color: #05c46b;
+  }
+`;
+
+const DeleteBtn = styled.div`
+  margin-left: 1rem;
+  cursor: pointer;
+  &:hover {
+    color: #ff3f34;
+  }
+`;
 
 export default React.memo(TodoItem);
