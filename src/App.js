@@ -1,12 +1,10 @@
 import Counter from "./Counter";
-import {CounterProvider} from "./contexts/CounterProvider";
-
-
+import { CounterProvider } from "./contexts/CounterProvider";
 
 function App() {
   return (
     <CounterProvider>
-        <Counter />
+      <Counter />
     </CounterProvider>
   );
 }
