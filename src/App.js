@@ -1,14 +1,13 @@
 import Counter from "./Counter";
-import CounterContext from "./contexts/sample";
+import {CounterProvider} from "./contexts/CounterProvider";
+
 
 
 function App() {
   return (
-    <div className="App">
-      <CounterContext.Provider>
+    <CounterProvider>
         <Counter />
-      </CounterContext.Provider>
-    </div>
+    </CounterProvider>
   );
 }
 
