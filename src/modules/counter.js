@@ -7,15 +7,21 @@ export const increase = () => ({ type: INCREASE });
 export const decrease = () => ({ type: DECREASE });
 
 // initialCounter
-const initialCount = 0;
+const initialCount = { count: 0 };
 
 // reducer 생성
 export function counter(state = initialCount, action) {
   switch (action.type) {
     case INCREASE:
-      return state + 1;
+      return {
+        ...state,
+        count: state.count + 1,
+      };
     case DECREASE:
-      return state - 1;
+      return {
+        ...state,
+        count: state.count - 1,
+      };
     default:
       return state;
   }

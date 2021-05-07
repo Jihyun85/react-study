@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { decrease, increase } from "./modules/counter";
+import { decrease, increase } from "../modules/counter";
 
 function Counter() {
-  const { count } = useSelector((state) => ({ count: state.counter }));
+  const { count } = useSelector((state) => ({ count: state.counter.count }));
   const dispatch = useDispatch();
 
   const increaseCount = () => dispatch(increase());
