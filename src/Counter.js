@@ -1,20 +1,21 @@
 import React from "react";
-import { useCount, useDispatch } from "./contexts/CounterProvider";
+import { useDispatch, useSelector } from "react-redux";
+import { decrease, increase } from "./modules/counter";
 
 function Counter() {
-  const state = useCount();
+  const { count } = useSelector((state) => ({ count: state.counter }));
   const dispatch = useDispatch();
 
-  const increase = () => dispatch({ type: "INCREASE" });
-  const decrease = () => dispatch({ type: "DECREASE" });
+  const increaseCount = () => dispatch(increase());
+  const decreaseCount = () => dispatch(decrease());
 
   return (
     <div>
-      <p>Count: {state.count}</p>
-      <button type="button" onClick={increase}>
+      <p>Count: {count}</p>
+      <button type="button" onClick={increaseCount}>
         +
       </button>
-      <button type="button" onClick={decrease}>
+      <button type="button" onClick={decreaseCount}>
         -
       </button>
     </div>

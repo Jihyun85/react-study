@@ -2,5 +2,5 @@
 
 - [x] Counter - useState
 - [x] Counter - useReducer
-- [ ] Counter - context API
-- [ ] Counter - redux
+- [x] Counter - context API
+- [x] Counter - redux
