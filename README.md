@@ -1,6 +1,6 @@
 ## React 연습
 
-- [ ] Counter - hook
+- [x] Counter - useState
 - [ ] Counter - useReducer
 - [ ] Counter - context API
 - [ ] Counter - redux
