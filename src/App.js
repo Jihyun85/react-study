@@ -4,10 +4,10 @@ import TodoContainer from "./containers/TodoContainer";
 
 function App() {
   return (
-    <TodoProvider>
+    <>
       {/* <Counter /> */}
       <TodoContainer />
-    </TodoProvider>
+    </>
   );
 }
 

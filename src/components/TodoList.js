@@ -1,15 +1,18 @@
-import React, { useContext } from "react";
-import { TodoStateContext } from "../contexts/TodoProvider";
+import React from "react";
 import TodoItem from "./TodoItem";
 
-function TodoList() {
-  const { todos } = useContext(TodoStateContext);
-
+function TodoList({ todos, onToggle }) {
   return (
     <ul>
-      {todos.map((todo) => (
-        <TodoItem key={todo.id} id={todo.id} todo={todo.text} />
-      ))}
+      {todos &&
+        todos.map((todo) => (
+          <TodoItem
+            key={todo.id}
+            id={todo.id}
+            todo={todo.text}
+            onToggle={onToggle}
+          />
+        ))}
     </ul>
   );
 }
