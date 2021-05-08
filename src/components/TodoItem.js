@@ -1,8 +1,8 @@
 import React from "react";
 
-function TodoItem({ id, todo, onClick }) {
+function TodoItem({ id, todo, onToggle }) {
   return (
-    <li id={id} onClick={onClick}>
+    <li id={id} onClick={onToggle}>
       {todo}
     </li>
   );
