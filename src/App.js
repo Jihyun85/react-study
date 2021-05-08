@@ -1,7 +1,13 @@
-import Counter from "./components/Counter";
+// import Counter from "./components/Counter";
+import TodoContainer from "./containers/TodoContainer";
 
 function App() {
-  return <Counter />;
+  return (
+    <>
+      {/* <Counter /> */}
+      <TodoContainer />
+    </>
+  );
 }
 
 export default App;
